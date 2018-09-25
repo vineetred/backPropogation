@@ -37,9 +37,11 @@ class Neural_Network(object):
         #forward propagation through our network
         self.z = np.dot(X, self.W1) # dot product of X (input) and first set of 3x2 weights
         # self.z = (self.W1*X)
+        print (self.z)
         self.z2 = self.sigmoid(self.z) # activation function
         self.z3 = np.dot(self.z2, self.W2) # dot product of hidden layer (z2) and second set of 3x1 weights
         o = self.sigmoid(self.z3) # final activation function
+        print ("O",o)
         return o 
 
     def backward(self, X, y, o):
@@ -58,7 +60,7 @@ class Neural_Network(object):
 
 
 NN = Neural_Network()
-    range(1000): # trains the NN 1,000 times
+for i in range(1000): # trains the NN 1,000 times
   print ("Input: \n" + str(X)) 
   print ("Actual Output: \n" + str(y)) 
   print ("Predicted Output: \n" + str(NN.forward(X))) 
