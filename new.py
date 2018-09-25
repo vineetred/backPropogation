@@ -28,7 +28,7 @@ class Neural_Network(object):
     def sigmoid(self, s):
         # activation function 
         return 1/(1+np.exp(-s))
-        
+
     def sigmoidPrime(self, s):
         #derivative of sigmoid
         return s * (1 - s)
@@ -42,10 +42,26 @@ class Neural_Network(object):
         o = self.sigmoid(self.z3) # final activation function
         return o 
 
+    def backward(self, X, y, o):
+        self.o_error = y - o
+        self.o_delta = self.o_error*self.sigmoidPrime(o)
+
+        self.z2_error = self.o_delta.dot(self.W2.T) # z2 error: how much our hidden layer weights contributed to output error
+        self.z2_delta = self.z2_error*self.sigmoidPrime(self.z2) # applying derivative of sigmoid to z2 error
+
+        self.W1 += X.T.dot(self.z2_delta) # adjusting first set (input --> hidden) weights
+        self.W2 += self.z2.T.dot(self.o_delta) # adjusting second set (hidden --> output) weights
+
+    def train (self, X, y):
+        o = self.forward(X)
+        self.backward(X, y, o)
+
+
 NN = Neural_Network()
-
-#defining our output 
-o = NN.forward(X)
-
-print ("Predicted Output: \n" + str(o)) 
-print ("Actual Output: \n" + str(y)) 
+    range(1000): # trains the NN 1,000 times
+  print ("Input: \n" + str(X)) 
+  print ("Actual Output: \n" + str(y)) 
+  print ("Predicted Output: \n" + str(NN.forward(X))) 
+  print ("Loss: \n" + str(np.mean(np.square(y - NN.forward(X))))) # mean sum squared loss
+  print ("\n")
+  NN.train(X, y)

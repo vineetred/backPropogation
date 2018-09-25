@@ -31,14 +31,34 @@ Y = sigmoid_p(X)
 # plt.plot(X,Y)
 # plt.show()
 
-
-for i in range(100):
+eta = 0.01
+costs = []
+for i in range(50000):
 	ri = np.random.randint(len(data))
 	point = data[ri]
 
-	z = point[0]*w1 + point[1]*w2 + b
+	S_i = point[0]*w1 + point[1]*w2 + b
 	target = point[2]
-	pred = sigmoid(z)
+	pred = sigmoid(S_i)
 
-	error = (pred - target)**2
-	print (target, error)
+	error = np.square(pred - target)
+
+	derErrorPred = 2*(pred-target)
+	derPredSi = sigmoid_p(S_i)
+	derSiw1 = point[0]
+	derSiw2 = point[2]
+	derSibias = 1
+
+	derErrorw1 = derErrorPred * derPredSi * derSiw1
+	derErrorw2 = derErrorPred * derPredSi * derSiw2
+	derErrorbias = derErrorPred * derPredSi * derSibias
+	
+	#Training
+	w1 = w1 - eta * derErrorw1
+	w2 = w2 - eta * derErrorw2
+	b = b - eta * derErrorbias
+	# if(i%1000==0):
+	costs.append(error)
+
+plt.plot(costs)
+plt.show()
