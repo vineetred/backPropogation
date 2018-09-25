@@ -15,7 +15,9 @@ input = 2
 eta = 0.1
 
 #Weight activation
-W1 = np.random.randn(input, hidden) #Input to Hidden
+global W1 #Input to Hidden
+W1 = np.random.randn(input, hidden)
+global W2
 W2 = np.random.randn(hidden, output) #Hidden to output
 bias = np.random.randn()
 # print(W2.T[0])
@@ -53,14 +55,15 @@ def backwardProp(X, Y):
     delta = error*sigmoidPrime(forward.sum2Sig)
     print(delta)
     sum2_error = forward.sumSig 
+    W1=W1+np.dot(X*delta.T)
+    W2+=sumSig.T.dot(delta)
 
+    # for j in range(0, len(W1.T)):
+    #     for k in range(0,len(W1)):
+    #         W1[j][k] = W1[j][k] + eta* error * X
 
-    for j in range(0, len(W1.T)):
-        for k in range(0,len(W1)):
-            W1[j][k] = W1[j][k] + eta* error * X
-
-    for i in range(0,len(W2)):
-        W2[i] = W2[i] + eta * delta[i] * forward.sum2Sig[i]
+    # for i in range(0,len(W2)):
+    #     W2[i] = W2[i] + eta * delta[i] * forward.sum2Sig[i]
     
     
     
