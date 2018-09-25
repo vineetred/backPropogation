@@ -23,7 +23,22 @@ b = np.random.randn()
 def sigmoid(x):
     return 1/(1+np.exp(-x))
 
-X = np.linspace(-10,10,10)
-Y = sigmoid(X)
-plt.plot(X,Y)
-plt.show()
+def sigmoid_p(x):
+    return sigmoid(x) * (1-sigmoid(x))
+
+X = np.linspace(-100,100,100)
+Y = sigmoid_p(X)
+# plt.plot(X,Y)
+# plt.show()
+
+
+for i in range(100):
+	ri = np.random.randint(len(data))
+	point = data[ri]
+
+	z = point[0]*w1 + point[1]*w2 + b
+	target = point[2]
+	pred = sigmoid(z)
+
+	error = (pred - target)**2
+	print (target, error)
