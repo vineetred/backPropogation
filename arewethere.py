@@ -9,6 +9,8 @@ import math
 
 fileopen = open('traindata') 
 
+
+
 data_X, data_Y = np.loadtxt(fileopen,usecols=(0,1), unpack=True)
 # data_Y = np.loadtxt(fileopen, usecols=(0))
 
@@ -16,15 +18,16 @@ data_X, data_Y = np.loadtxt(fileopen,usecols=(0,1), unpack=True)
 # data_Y = [13,14,15,16,17,18,19,20,21,22,23]
 
 #Parameters for neural network
-hidden = 2
+hidden = 6 #No of Hidden neurons!
 output = 1
 input = 1
-eta = 0.1
+eta = 0.01
 errors = []
 bias = 1
 error = 0
+epochs = 2500
 
-# W1 = np.random.randn(input, hidden)
+# W1 = np.random.randn(input, hidden) 
 
 W1 = [[random.uniform(-1.0, 1.0) for i in range(input)] for i in range(hidden)]
 W2 = [[random.uniform(-1.0, 1.0) for i in range(hidden)] for i in range(output)]
@@ -60,22 +63,23 @@ def sigmoidPrime(x):
 def forward(X):
     #Input to Hidden
     for j in range(0, hidden):
-        h_Hidden[j]=0
+        h_Hidden[j]=bias
         for k in range(0, input):
             h_Hidden[j]= h_Hidden[j]+W1[j][k]*X #this is S_j
-        sum_Hidden[j] = sigmoid(h_Hidden[j]+bias) #add bias here
+        sum_Hidden[j] = sigmoid(h_Hidden[j]) #add bias here
 
     #Hidden to output
     for i in range(0, output):
+        sum_Output[i]=bias
         for j in range(0, hidden):
             yhat_Output[i] = W2[i][j]*sum_Hidden[j]
             # print("yhat ",yhat_Output[i])
             sum_Output[i] += yhat_Output[i]
-        sigmoidHiddenSi[i] = sum_Output[i]+bias
+        # sigmoidHiddenSi[i] = sum_Output[i]+bias
         # print("S_I", sigmoidHiddenSi)
-        sum_Output[i] = sigmoid(sum_Output[i]+bias)  # THIS IS yHAT
+        sum_Output[i] = sigmoid(sum_Output[i])  # THIS IS yHAT
         # print("Sum_OUTPUT", sum_Output)
-    
+    return sum_Output[i]
 
 def backward(X, Y):
     global error
@@ -114,11 +118,11 @@ def backward(X, Y):
 # data_X = [0.1,0.2,0.3,0.4,0.5]
 # data_Y = [0.2,0.3,0.4,0.5,0.6]
 
-for j in range(0,50): #Number of epcochs
-    for i in range(0,51):
+for j in range(0,epochs): #Number of epcochs
+    for i in range(0,52):
         forward(data_X[i])
         backward(data_X[i],data_Y[i])
-        
+    
         # print(hello)
     meanSquare = error**2    
     print ("Error Sqare: ", meanSquare)
@@ -130,4 +134,21 @@ print (W2)
 # print(sigmoidPrime(10))
 
 plt.plot(errors)
+plt.xlabel('Epochs')
+plt.ylabel('Error')
+
 plt.show()
+
+
+#TESTING
+
+print(forward(6))
+
+fileopenTest = open('testing') 
+
+data_X_test, data_Y_test = np.loadtxt(fileopenTest,usecols=(0,1), unpack=True)
+diff = 0
+for i in range(0,50):
+    op = forward(data_X_test[i])
+    diff = (data_Y_test[i]-forward(data_X_test[i]))**2+diff
+    print("Error OUT", diff)
