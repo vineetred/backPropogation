@@ -20,7 +20,7 @@ data_Y = [13,14,15,16,17]
 hidden = 3
 output = 1
 input = 1
-eta = 0.5
+eta = 0.01
 errors = []
 bias = 1
 
