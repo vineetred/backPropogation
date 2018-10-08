@@ -13,9 +13,9 @@ output = 1 #Output neurons
 input = 1 #Input neurons
 eta = 0.01 #Learning rate
 errors = []
-bias = 1 #Bias
+bias = -1 #Bias
 error = 0
-epochs = 2500 #Number of epochs
+epochs = 500 #Number of epochs
 
 #Initialising weights
 W1 = [[random.uniform(-0.2, 0.2) for i in range(input)] for i in range(hidden)]
