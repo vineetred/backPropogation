@@ -17,3 +17,12 @@ epochs = 2500 #Number of epochs
 ```
 
 The dataset that this neural network works on is normalised. If you're using it on another dataset, make sure it is normailsed.
+
+The legacy folder has all the files that were basically my (failed) attempts at making this algorithm work. 
+
+## How to run - 
+- The script, arewethere.py, is the final script. You will need to have some testing data as well as some training data for it to work.
+
+- Specify where you training and testing data is.
+
+- Change your neural network parameters and then just run it. Should work. It will also automically plot the error rate.
