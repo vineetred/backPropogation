@@ -5,9 +5,7 @@ data_X = []
 #Opening the file
 fileopen = open('traindata')
 data = np.loadtxt(fileopen, usecols=(0))
-# data_X = data[:,0]
-# print(data)
-# print(data[0])
+
 #Parameters for neural network
 hidden = 3
 output = 1
