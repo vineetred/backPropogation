@@ -26,7 +26,9 @@ The legacy folder has all the files that were basically my (failed) attempts at 
     ├── arewethere.py            # Main BBP algorithm implmentation
     ├── testing                  # Testing and training data
 
-## How to run - 
+## How to run
+- Run the command  ``` pip3 install -r install.txt ``` to install all the dependencies (Python 3).
+
 - The script, arewethere.py, is the final script. You will need to have some testing data as well as some training data for it to work.
 
 - Specify where you training and testing data is.
