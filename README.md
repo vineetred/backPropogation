@@ -20,6 +20,12 @@ The dataset that this neural network works on is normalised. If you're using it 
 
 The legacy folder has all the files that were basically my (failed) attempts at making this algorithm work. 
 
+## File Structure 
+    .
+    ├── legacy                   # Defunct files. Tinkered around on them.
+    ├── arewethere.py            # Main BBP algorithm implmentation
+    ├── testing                  # Testing and training data
+
 ## How to run - 
 - The script, arewethere.py, is the final script. You will need to have some testing data as well as some training data for it to work.
 
