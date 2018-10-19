@@ -4,7 +4,7 @@ import random
 import math
 
 #Opening dataset
-fileopen = open('traindata') 
+fileopen = open('data/traindata') 
 data_X, data_Y = np.loadtxt(fileopen,usecols=(0,1), unpack=True)
 
 #Parameters for neural network
@@ -109,7 +109,7 @@ plt.ylabel('Error')
 plt.show()
 
 #TESTING
-fileopenTest = open('testing') 
+fileopenTest = open('data/testing') 
 data_X_test, data_Y_test = np.loadtxt(fileopenTest,usecols=(0,1), unpack=True)
 
 diff = 0
