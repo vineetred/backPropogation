@@ -24,7 +24,7 @@ The legacy folder has all the files that were basically my (failed) attempts at 
     .
     ├── legacy                   # Defunct files. Tinkered around on them.
     ├── arewethere.py            # Main BBP algorithm implmentation
-    ├── testing                  # Testing and training data
+    ├── data                  # Testing and training data
 
 ## How to run
 - Run the command  ``` pip3 install -r install.txt ``` to install all the dependencies (Python 3).
