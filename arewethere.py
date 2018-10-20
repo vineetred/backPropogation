@@ -1,9 +1,10 @@
+#Libraries being imported
 from matplotlib import pyplot as plt
 import numpy as np
 import random
 import math
 
-#Opening dataset
+#Opening datasets
 fileopen = open('data/traindata') 
 data_X, data_Y = np.loadtxt(fileopen,usecols=(0,1), unpack=True)
 
@@ -12,11 +13,12 @@ hidden = 6#No of Hidden neurons!
 output = 1 #Output neurons
 input = 1 #Input neurons
 eta = 0.01 #Learning rate
-errors = []
 bias = -1 #Bias
-error = 0
+errors = [] #For diagnosis purposes
+error = 0 #For diagnosis purposes
 epochs = 500 #Number of epochs
 
+#<--- THE ALGORITHM --->
 #Initialising weights
 W1 = [[random.uniform(-0.2, 0.2) for i in range(input)] for i in range(hidden)]
 W2 = [[random.uniform(-0.2, 0.2) for i in range(hidden)] for i in range(output)]
@@ -43,20 +45,20 @@ sumPrime_Output = [0 for i in range(output)]
 #Sigmoid function
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
-
+#Sigmoid derivative function
 def sigmoidPrime(x):
     return sigmoid(x) * sigmoid((1-x))
 
 #Forward Pass
 def forward(X):
-    #Input to Hidden
+    #INPUT ---> HIDDEN
     for j in range(0, hidden):
         h_Hidden[j]=bias
         for k in range(0, input):
             h_Hidden[j]= h_Hidden[j]+W1[j][k]*X #this is S_j
         sum_Hidden[j] = sigmoid(h_Hidden[j]) 
 
-    #Hidden to output
+    #HIDDEN ---> OUTPUT
     for i in range(0, output):
         sum_Output[i]=bias
         for j in range(0, hidden):
@@ -65,13 +67,17 @@ def forward(X):
         sum_Output[i] = sigmoid(sum_Output[i])  # THIS IS yHAT
     return sum_Output[i]
 
+#Backward Propogation
 def backward(X, Y):
     global error
     error = Y - sum_Output[0] + error
+
+    #HIDDEN <--- OUTPUT
     for i in range(0, output):
         sumPrime_Output[i] = sigmoidPrime(sum_Output[i]) #Changed from sigmoidHiddenSi to sumOutput
         delta_Output[i] = error*sumPrime_Output[i]
 
+    #INPUT <--- HIDDEN
     for j in range(0, hidden):
         sumPrime_Hidden[j] = sigmoidPrime(h_Hidden[j]) 
         for i in range(0, output):
@@ -90,12 +96,12 @@ def backward(X, Y):
             W1[j][k] = W1[j][k] +eta*delta_Hidden[j]*X
 
 
-#Training!
+#<--- TRAINING! --->
 for j in range(0,epochs): #Number of epcochs
     for i in range(0,52):
         forward(data_X[i])
         backward(data_X[i],data_Y[i])
-    
+    #Using mean square to depict error
     meanSquare = error**2    
     errors.append(meanSquare)
     error = 0
@@ -108,7 +114,7 @@ plt.xlabel('Epochs')
 plt.ylabel('Error')
 plt.show()
 
-#TESTING
+#<--- TESTING --->
 fileopenTest = open('data/testing') 
 data_X_test, data_Y_test = np.loadtxt(fileopenTest,usecols=(0,1), unpack=True)
 
